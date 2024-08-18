@@ -29,9 +29,14 @@ class Page
     protected $file = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $link;
+    protected $html = null;
+
+    /**
+     * @var string|null
+     */
+    protected $link = null;
 
     /**
      * @var string|null
@@ -53,6 +58,14 @@ class Page
         {
             $this->body = $data;
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->html;
     }
 
     /**
@@ -84,7 +97,15 @@ class Page
     }
 
     /**
-     * @var string
+     * @var string|null
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+    /**
+     * @var string|null
      */
     public function getLink()
     {
@@ -131,6 +152,18 @@ class Page
     public function setFile($file)
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $html
+     *
+     * @return self
+     */
+    public function setHtml($html = null)
+    {
+        $this->html = $html;
 
         return $this;
     }

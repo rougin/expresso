@@ -4,6 +4,11 @@ namespace Rougin\Staticka;
 
 use Rougin\Staticka\Render\RenderInterface;
 
+/**
+ * @package Staticka
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class Render implements RenderInterface
 {
     /**

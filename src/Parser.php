@@ -4,6 +4,11 @@ namespace Rougin\Staticka;
 
 use Rougin\Staticka\Render\RenderInterface;
 
+/**
+ * @package Staticka
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class Parser extends \Parsedown
 {
     /**
@@ -22,7 +27,7 @@ class Parser extends \Parsedown
     /**
      * @param \Rougin\Staticka\Page $page
      *
-     * @return string
+     * @return \Rougin\Staticka\Page
      */
     public function parsePage(Page $page)
     {
@@ -44,6 +49,22 @@ class Parser extends \Parsedown
         $matter = $parsed[0];
 
         $data = array_merge($data, $matter);
+
+        $page->setData($data);
+
+        if (array_key_exists('link', $data))
+        {
+            /** @var string */
+            $link = $data['link'];
+            $page->setLink($link);
+        }
+
+        if (array_key_exists('name', $data))
+        {
+            /** @var string */
+            $name = $data['name'];
+            $page->setName($name);
+        }
         // -------------------------------------------
 
         /** @var string */
@@ -58,6 +79,8 @@ class Parser extends \Parsedown
         }
         // ------------------------------------------
 
-        return $this->parse($body);
+        $html = $this->parse($body);
+
+        return $page->setHtml($html);
     }
 }

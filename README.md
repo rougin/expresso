@@ -71,15 +71,21 @@ use Rougin\Staticka\Render;
 
 // ...
 
-// Each Markdown file needs to be rendered ---
-$render = new Render(__DIR__ . '/sample');
-// -------------------------------------------
+// Each file needs to be rendered ---
+$path = __DIR__ . '/sample';
+
+$render = new Render(array($path));
+// ----------------------------------
 
 // Specify the path of the Markdown file ---
 $page = new Page('hello/index.md');
 // -----------------------------------------
 
-// ...
+// Converts the page into an HTML ---
+$parser = new Parser($render);
+
+echo $parser->parsePage($page);
+// ----------------------------------
 ```
 
 ``` bash
@@ -111,6 +117,40 @@ $ php index.php
 
 <h1>Hello World!</h1>
 
+<p>The link is <strong>brave-world</strong>.</p>
+```
+
+### Building HTML pages
+
+Multiple `Page` instances can be converted into `.html` files including their respective directories using the `Site` class:
+
+``` php
+
+// ...
+
+use Rougin\Staticka\Site;
+
+// ...
+
+// Builds the site with its pages ---
+$site = new Site($parser);
+
+$page = new Page('hello/index.md');
+
+$site->addPage($page);
+
+$site->build(__DIR__ . '/output');
+// ----------------------------------
+```
+
+``` bash
+$ php index.php
+```
+
+``` html
+<!-- output/brave-world/index.html -->
+
+<h1>Hello World!</h1>
 <p>The link is <strong>brave-world</strong>.</p>
 ```
 
