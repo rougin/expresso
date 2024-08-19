@@ -71,21 +71,15 @@ use Rougin\Staticka\Render;
 
 // ...
 
-// Each file needs to be rendered ---
-$path = __DIR__ . '/sample';
-
-$render = new Render(array($path));
-// ----------------------------------
-
 // Specify the path of the Markdown file ---
-$page = new Page('hello/index.md');
+$file = __DIR__ . '/sample/hello/index.md';
+
+$page = new Page($file);
 // -----------------------------------------
 
-// Converts the page into an HTML ---
-$parser = new Parser($render);
+// ...
 
 echo $parser->parsePage($page);
-// ----------------------------------
 ```
 
 ``` bash
@@ -132,15 +126,14 @@ use Rougin\Staticka\Site;
 
 // ...
 
-// Builds the site with its pages ---
+// Builds the site with its pages ---------
 $site = new Site($parser);
 
-$page = new Page('hello/index.md');
-
-$site->addPage($page);
+$file = __DIR__ . '/sample/hello/index.md';
+$site->addPage(new Page((string) $file));
 
 $site->build(__DIR__ . '/output');
-// ----------------------------------
+// ----------------------------------------
 ```
 
 ``` bash

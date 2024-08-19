@@ -37,9 +37,10 @@ class Parser extends \Parsedown
 
         $file = $page->getFile();
 
-        if ($file && $this->render)
+        if ($file)
         {
-            $body = $this->render->render($file, $data);
+            /** @var string */
+            $body = file_get_contents($file);
         }
 
         // Merge Front Matter to the existing data ---

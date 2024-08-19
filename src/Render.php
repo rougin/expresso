@@ -118,7 +118,7 @@ class Render implements RenderInterface
 
         $item = new \RecursiveIteratorIterator($dir);
 
-        $pattern = '/^.+\.md$/i';
+        $pattern = '/^.+\.php$/i';
 
         $regex = new \RegexIterator($item, $pattern, 1);
 
