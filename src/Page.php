@@ -36,6 +36,11 @@ class Page
     /**
      * @var string|null
      */
+    protected $layout = null;
+
+    /**
+     * @var string|null
+     */
     protected $link = null;
 
     /**
@@ -85,6 +90,8 @@ class Page
 
         $data['name'] = $this->name;
 
+        $data['html'] = $this->html;
+
         return (array) $data;
     }
 
@@ -102,6 +109,14 @@ class Page
     public function getHtml()
     {
         return $this->html;
+    }
+
+    /**
+     * @var string|null
+     */
+    public function getLayout()
+    {
+        return $this->layout;
     }
 
     /**
@@ -164,6 +179,18 @@ class Page
     public function setHtml($html = null)
     {
         $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * @param string $layout
+     *
+     * @return self
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
 
         return $this;
     }

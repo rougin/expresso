@@ -147,6 +147,12 @@ $ php index.php
 <p>The link is <strong>brave-world</strong>.</p>
 ```
 
+### Adding template engines
+
+Building HTML pages from Markdown files only includes the content itself. By adding a third-party template engine, it makes it easier to add partials (e.g., layouts) or provide additional styling to each page. To add a template engine, a `Render` class must be used inside the `Parser` class:
+
+
+
 ## Changelog
 
 Please see [CHANGELOG][link-changelog] for more information what has changed recently.

@@ -31,19 +31,35 @@ class Parser extends \Parsedown
      */
     public function parsePage(Page $page)
     {
-        $body = $page->getBody();
-
-        $data = $page->getData();
-
         $file = $page->getFile();
 
         if ($file)
         {
             /** @var string */
             $body = file_get_contents($file);
+
+            $page->setBody($body);
         }
 
-        // Merge Front Matter to the existing data ---
+        $page = $this->mergeMatter($page);
+
+        if (! $this->render)
+        {
+            return $this->parseHtml($page);
+        }
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     *
+     * @return \Rougin\Staticka\Page
+     */
+    protected function mergeMatter(Page $page)
+    {
+        $data = $page->getData();
+
+        $body = $page->getBody();
+
         $parsed = Matter::parse($body);
 
         /** @var array<string, mixed> */
@@ -66,10 +82,23 @@ class Parser extends \Parsedown
             $name = $data['name'];
             $page->setName($name);
         }
-        // -------------------------------------------
 
         /** @var string */
         $body = $parsed[1];
+
+        return $page->setBody($body);
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     *
+     * @return \Rougin\Staticka\Page
+     */
+    protected function parseHtml(Page $page)
+    {
+        $body = $page->getBody();
+
+        $data = $page->getData();
 
         // Converts placeholder in body, if any -----
         foreach ($data as $key => $value)
