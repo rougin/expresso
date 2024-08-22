@@ -43,10 +43,22 @@ class Parser extends \Parsedown
 
         $page = $this->mergeMatter($page);
 
-        if (! $this->render)
+        $layout = $page->getLayout();
+
+        $page = $this->parseHtml($page);
+
+        if (! $this->render || ! $layout)
         {
-            return $this->parseHtml($page);
+            return $page;
         }
+
+        $data = $page->getData();
+
+        $data['page'] = $page->getHtml();
+
+        $html = $this->render->render($layout, $data);
+
+        return $page->setHtml($html);
     }
 
     /**
@@ -81,6 +93,13 @@ class Parser extends \Parsedown
             /** @var string */
             $name = $data['name'];
             $page->setName($name);
+        }
+
+        if (array_key_exists('layout', $data))
+        {
+            /** @var string */
+            $layout = $data['layout'];
+            $page->setLayout($layout);
         }
 
         /** @var string */
