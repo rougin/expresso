@@ -222,7 +222,7 @@ $ php index.php
 </head>
 <body>
   <h1>This is a hello world!</h1>
-<p>The link is <strong>hello-world</strong>. And this is to get started...</p></body>
+  <p>The link is <strong>hello-world</strong>. And this is to get started...</p></body>
 </html>
 ```
 
@@ -423,7 +423,8 @@ $ php index.php
 </head>
 <body>
   <h1>This is a hello world!</h1>
-<p>The link is <strong>hello-world</strong>. And this is to get started...</p>  <a href="https://roug.in/hello-world">Hello world!</a>
+  <p>The link is <strong>hello-world</strong>. And this is to get started...</p>
+  <a href="https://roug.in/hello-world">Hello world!</a>
 </body>
 </html>
 ```
