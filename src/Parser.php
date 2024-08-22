@@ -52,13 +52,22 @@ class Parser extends \Parsedown
             return $page;
         }
 
-        $data = $page->getData();
+        $data = (array) $page->getData();
 
         $data['page'] = $page->getHtml();
 
-        $html = $this->render->render($layout, $data);
+        if ($name = $layout->getName())
+        {
+            $data = $this->insertHelpers($page, $data);
 
-        return $page->setHtml($html);
+            $name = $layout->getName();
+
+            $html = $this->render->render($name, $data);
+
+            $page = $page->setHtml($html);
+        }
+
+        return $this->useFilters($page);
     }
 
     /**
@@ -97,8 +106,21 @@ class Parser extends \Parsedown
 
         if (array_key_exists('layout', $data))
         {
+            $layout = new Layout;
+
             /** @var string */
-            $layout = $data['layout'];
+            $name = $data['layout'];
+
+            if (class_exists($name))
+            {
+                /** @var \Rougin\Staticka\Layout */
+                $layout = new $name;
+            }
+            else
+            {
+                $layout->setName($name);
+            }
+
             $page->setLayout($layout);
         }
 
@@ -129,6 +151,52 @@ class Parser extends \Parsedown
         // ------------------------------------------
 
         $html = $this->parse($body);
+
+        return $page->setHtml($html);
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     * @param array<string, mixed>  $data
+     *
+     * @return array<string, mixed>
+     */
+    protected function insertHelpers(Page $page, $data)
+    {
+        $layout = $page->getLayout();
+
+        $helpers = $layout->getHelpers();
+
+        foreach ($helpers as $helper)
+        {
+            $data[$helper->name()] = $helper;
+        }
+
+        return (array) $data;
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     *
+     * @return \Rougin\Staticka\Page
+     */
+    protected function useFilters(Page $page)
+    {
+        $layout = $page->getLayout();
+
+        if (! $layout)
+        {
+            return $page;
+        }
+
+        $filters = $layout->getFilters();
+
+        $html = $page->getHtml();
+
+        foreach ($filters as $filter)
+        {
+            $html = $filter->filter($html);
+        }
 
         return $page->setHtml($html);
     }

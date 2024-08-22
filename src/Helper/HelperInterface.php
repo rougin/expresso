@@ -9,4 +9,10 @@ namespace Rougin\Staticka\Helper;
  */
 interface HelperInterface
 {
+    /**
+     * Returns the name of the helper.
+     *
+     * @return string
+     */
+    public function name();
 }

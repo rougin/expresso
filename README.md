@@ -226,6 +226,224 @@ $ php index.php
 </html>
 ```
 
+To implement a custom template engine to `Staticka`, implement the said engine to the `RenderInterface`:
+
+``` php
+namespace Rougin\Staticka\Render;
+
+interface RenderInterface
+{
+    /**
+     * Renders a file from a specified template.
+     *
+     * @param string               $name
+     * @param array<string, mixed> $data
+     *
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public function render($name, $data = array());
+}
+
+```
+
+### Setting layouts
+
+In `Staticka`, a `Layout` class allows a page to use filters and helpers. It can also be passed as a `class-string` in the `.md` file:
+
+``` php
+// index.php
+
+use Rougin\Staticka\Layout;
+
+// ...
+
+$pages = __DIR__ . '/app/pages';
+
+// Define the layout with the name "main.php" ---
+$layout = new Layout;
+
+$layout->setName('main.php');
+// ----------------------------------------------
+
+// ...
+
+// Set the layout into the page -------------
+$page = new Page($pages . '/hello-world.md');
+
+$site->addPage($page->setLayout($layout));
+// ------------------------------------------
+```
+
+> [!NOTE]
+> Using this approach, there is no need to specify the `layout` property from the specified `.md` file.
+
+It is also possible to specify a class extended to `Layout` in the Front Matter details:
+
+``` php
+namespace App\Layouts;
+
+use Rougin\Staticka\Layout;
+
+class HomeLayout extends Layout
+{
+    /**
+     * Specifies the plate to be used as the layout.
+     *
+     * @var string
+     */
+    protected $name = 'home.php';
+}
+```
+
+> [!NOTE]
+> The directory of the specified plate must be specified in the `Render` instance (e.g., `app/plates`).
+
+``` md
+<!-- app/pages/hello-world.md -->
+
+---
+name: Hello world!
+link: hello-world
+layout: App\Layouts\HomeLayout
+---
+
+# This is a hello world!
+
+The link is **{LINK}**. And this is to get started...
+```
+
+### Modifying with filters
+
+A `Filter` allows a page to be modified after being parsed:
+
+``` php
+// index.php
+
+use Rougin\Staticka\Filter\HtmlMinifier;
+
+// ...
+
+// Set the layout class for "main.php" ---
+$layout = new Layout;
+
+$layout->setName('main.php');
+// ---------------------------------------
+
+// Minifies the HTML after parsing the page ---
+$layout->addFilter(new HtmlMinifier)
+// --------------------------------------------
+
+// ...
+```
+
+``` bash
+$ php index.php
+```
+
+``` html
+<!-- app/web/hello-world/index.html -->
+
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Hello world!</title></head><body><h1>This is a hello world!</h1><p>The link is <strong>hello-world</strong>. And this is to get started...</p></body></html>
+```
+
+To create a custom filter, implement it using the `FilterInterface`:
+
+``` php
+namespace Rougin\Staticka\Filter;
+
+interface FilterInterface
+{
+    /**
+     * Filters the specified code.
+     *
+     * @param string $code
+     *
+     * @return string
+     */
+    public function filter($code);
+}
+
+```
+
+### Custom methods using helpers
+
+A `Helper` provides additional methods inside template files:
+
+``` php
+// index.php
+
+use Rougin\Staticka\Helper\LinkHelper;
+
+// ...
+
+// Set the layout class for "main.php" ---
+$layout = new Layout;
+
+$layout->setName('main.php');
+// ---------------------------------------
+
+// Add a "$url" variable in templates ---
+$url = new LinkHelper('https://roug.in');
+
+$layout->addHelper($url);
+// --------------------------------------
+
+// ...
+```
+
+``` html
+<!-- app/plates/main.php -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><?php echo $name; ?></title>
+</head>
+<body>
+  <?php echo $html; ?>
+  <a href="<?php echo $url->set($link); ?>"><?php echo $name; ?></a>
+</body>
+</html>
+```
+
+``` bash
+$ php index.php
+```
+
+``` html
+<!-- app/web/hello-world/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello world!</title>
+</head>
+<body>
+  <h1>This is a hello world!</h1>
+<p>The link is <strong>hello-world</strong>. And this is to get started...</p>  <a href="https://roug.in/hello-world">Hello world!</a>
+</body>
+</html>
+```
+
+To create a template helper, implement the said code in `HelperInterface`:
+
+``` php
+namespace Rougin\Staticka\Helper;
+
+interface HelperInterface
+{
+    /**
+     * Returns the name of the helper.
+     *
+     * @return string
+     */
+    public function name();
+}
+```
+
 ## Changelog
 
 Please see [CHANGELOG][link-changelog] for more information what has changed recently.

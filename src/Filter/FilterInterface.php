@@ -9,4 +9,12 @@ namespace Rougin\Staticka\Filter;
  */
 interface FilterInterface
 {
+    /**
+     * Filters the specified code.
+     *
+     * @param string $code
+     *
+     * @return string
+     */
+    public function filter($code);
 }

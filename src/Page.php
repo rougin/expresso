@@ -34,7 +34,7 @@ class Page
     protected $html = null;
 
     /**
-     * @var string|null
+     * @var \Rougin\Staticka\Layout|null
      */
     protected $layout = null;
 
@@ -112,7 +112,7 @@ class Page
     }
 
     /**
-     * @var string|null
+     * @var \Rougin\Staticka\Layout|null
      */
     public function getLayout()
     {
@@ -184,11 +184,11 @@ class Page
     }
 
     /**
-     * @param string $layout
+     * @param \Rougin\Staticka\Layout $layout
      *
      * @return self
      */
-    public function setLayout($layout)
+    public function setLayout(Layout $layout)
     {
         $this->layout = $layout;
 

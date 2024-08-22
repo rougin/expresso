@@ -23,6 +23,11 @@ class Layout
     protected $helpers = array();
 
     /**
+     * @var null
+     */
+    protected $name = null;
+
+    /**
      * @return \Rougin\Staticka\Filter\FilterInterface[]
      */
     public function getFilters()
@@ -39,11 +44,19 @@ class Layout
     }
 
     /**
+     * @var string|null
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * @param \Rougin\Staticka\Filter\FilterInterface $filter
      *
      * @return self
      */
-    public function setFilter(FilterInterface $filter)
+    public function addFilter(FilterInterface $filter)
     {
         $this->filters[] = $filter;
 
@@ -55,9 +68,21 @@ class Layout
      *
      * @return self
      */
-    public function setHelper(HelperInterface $helper)
+    public function addHelper(HelperInterface $helper)
     {
         $this->helpers[] = $helper;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
         return $this;
     }
