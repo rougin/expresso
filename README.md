@@ -181,7 +181,7 @@ The link is **{LINK}**. And this is to get started...
 ```
 
 > [!NOTE]
-> The `$html` variable is a reserved variables for returning the content from the page that is parsed. The reserved variables is also based on the properties of a page with its data using the `$page->getData()` method.
+> The `$html` variable is a reserved variable for returning the content from the page that is parsed. The reserved variables is also based on the properties of a page with its data using the `$page->getData()` method.
 
 ``` php
 // index.php
