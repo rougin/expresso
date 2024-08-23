@@ -17,7 +17,7 @@ class Render implements RenderInterface
     protected $paths = array();
 
     /**
-     * @param string[] $paths
+     * @param string|string[] $paths
      */
     public function __construct($paths)
     {
