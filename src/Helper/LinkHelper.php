@@ -2,8 +2,6 @@
 
 namespace Rougin\Staticka\Helper;
 
-use Rougin\Staticka\Helper\HelperInterface;
-
 /**
  * @package Staticka
  *

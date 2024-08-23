@@ -60,11 +60,12 @@ class Parser extends \Parsedown
         {
             $data = $this->insertHelpers($page, $data);
 
-            $name = $layout->getName();
+            if ($name = $layout->getName())
+            {
+                $html = $this->render->render($name, $data);
 
-            $html = $this->render->render($name, $data);
-
-            $page = $page->setHtml($html);
+                $page = $page->setHtml($html);
+            }
         }
 
         return $this->useFilters($page);
@@ -139,6 +140,7 @@ class Parser extends \Parsedown
     {
         $body = $page->getBody();
 
+        /** @var array<string, string> */
         $data = $page->getData();
 
         // Converts placeholder in body, if any -----
@@ -164,6 +166,11 @@ class Parser extends \Parsedown
     protected function insertHelpers(Page $page, $data)
     {
         $layout = $page->getLayout();
+
+        if (! $layout)
+        {
+            return $data;
+        }
 
         $helpers = $layout->getHelpers();
 
@@ -195,7 +202,7 @@ class Parser extends \Parsedown
 
         foreach ($filters as $filter)
         {
-            $html = $filter->filter($html);
+            $html = $filter->filter((string) $html);
         }
 
         return $page->setHtml($html);

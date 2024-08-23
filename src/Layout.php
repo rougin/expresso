@@ -23,7 +23,7 @@ class Layout
     protected $helpers = array();
 
     /**
-     * @var null
+     * @var string|null
      */
     protected $name = null;
 
@@ -44,7 +44,7 @@ class Layout
     }
 
     /**
-     * @var string|null
+     * @return string|null
      */
     public function getName()
     {

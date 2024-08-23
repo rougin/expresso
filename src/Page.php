@@ -54,27 +54,27 @@ class Page
      */
     public function __construct($data = null, $type = self::TYPE_FILE)
     {
-        if ($type === self::TYPE_FILE)
+        if ($data && $type === self::TYPE_FILE)
         {
             $this->file = $data;
         }
 
-        if ($type === self::TYPE_BODY)
+        if ($data && $type === self::TYPE_BODY)
         {
             $this->body = $data;
         }
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function __toString()
     {
-        return $this->html;
+        return (string) $this->html;
     }
 
     /**
-     * @var string
+     * @return string
      */
     public function getBody()
     {
@@ -82,7 +82,7 @@ class Page
     }
 
     /**
-     * @var array<string, mixed>
+     * @return array<string, mixed>
      */
     public function getData()
     {
@@ -96,7 +96,7 @@ class Page
     }
 
     /**
-     * @var string|null
+     * @return string|null
      */
     public function getFile()
     {
@@ -104,7 +104,7 @@ class Page
     }
 
     /**
-     * @var string|null
+     * @return string|null
      */
     public function getHtml()
     {
@@ -112,7 +112,7 @@ class Page
     }
 
     /**
-     * @var \Rougin\Staticka\Layout|null
+     * @return \Rougin\Staticka\Layout|null
      */
     public function getLayout()
     {
@@ -120,7 +120,7 @@ class Page
     }
 
     /**
-     * @var string|null
+     * @return string|null
      */
     public function getLink()
     {
@@ -128,7 +128,7 @@ class Page
     }
 
     /**
-     * @var string|null
+     * @return string|null
      */
     public function getName()
     {

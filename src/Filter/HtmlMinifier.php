@@ -2,8 +2,6 @@
 
 namespace Rougin\Staticka\Filter;
 
-use Rougin\Staticka\Filter\FilterInterface;
-
 /**
  * @package Staticka
  *
