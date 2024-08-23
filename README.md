@@ -6,7 +6,7 @@
 [![Coverage Status][ico-coverage]][link-coverage]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A yet-another PHP-based static site generator. This converts [Markdown](https://en.wikipedia.org/wiki/Markdown) content and PHP template files into static HTML. It is inspired by popular static site generators like [Hugo](https://gohugo.io) and [Jekyll](https://jekyllrb.com).
+A yet-another PHP-based static site generator. This converts [Markdown](https://en.wikipedia.org/wiki/Markdown) content and PHP files into static HTML. It is inspired by popular static site generators like [Hugo](https://gohugo.io) and [Jekyll](https://jekyllrb.com).
 
 ## Installation
 
