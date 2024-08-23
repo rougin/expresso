@@ -33,8 +33,11 @@ class Render implements RenderInterface
      */
     public function render($name, $data = array())
     {
+        /** @var string */
+        $name = str_replace('.php', '', $name);
+
         // Find the file from the specified paths --------
-        $file = $this->find($name);
+        $file = $this->find($name . '.php');
 
         if (! $file)
         {
@@ -89,15 +92,15 @@ class Render implements RenderInterface
         {
             $files = $this->getFiles($path);
 
-            // Check if the name matched from the files ---
+            // Check if the name matched from the files ----
             foreach ($files as $file)
             {
-                if ($file === $name)
+                if (strtolower($file) === strtolower($name))
                 {
                     $result = $path . '/' . $name;
                 }
             }
-            // --------------------------------------------
+            // ---------------------------------------------
         }
 
         return $result;
