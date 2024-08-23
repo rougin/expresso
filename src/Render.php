@@ -92,15 +92,17 @@ class Render implements RenderInterface
         {
             $files = $this->getFiles($path);
 
-            // Check if the name matched from the files ----
+            // Check if the name matched from the files ---
             foreach ($files as $file)
             {
-                if (strtolower($file) === strtolower($name))
+                $fileName = strtolower($file['name']);
+
+                if ($fileName === strtolower($name))
                 {
-                    $result = $path . '/' . $name;
+                    $result = realpath($file['path']);
                 }
             }
-            // ---------------------------------------------
+            // --------------------------------------------
         }
 
         return $result;
@@ -131,6 +133,8 @@ class Render implements RenderInterface
         // Only return the basename of the file --------
         foreach ($items as $index => $item)
         {
+            $row = array('name' => '', 'path' => $item);
+
             /** @var string */
             $item = str_replace('\\', '/', $item);
 
@@ -140,7 +144,9 @@ class Render implements RenderInterface
             /** @var string */
             $item = str_replace($path, '', $item);
 
-            $items[$index] = (string) $item;
+            $row['name'] = $item;
+
+            $items[$index] = (array) $row;
         }
         // ---------------------------------------------
 
