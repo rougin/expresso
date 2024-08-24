@@ -72,6 +72,18 @@ class Parser extends \Parsedown
     }
 
     /**
+     * @param \Rougin\Staticka\Render\RenderInterface $render
+     *
+     * @return self
+     */
+    public function setRender(RenderInterface $render)
+    {
+        $this->render = $render;
+
+        return $this;
+    }
+
+    /**
      * @param \Rougin\Staticka\Page $page
      *
      * @return \Rougin\Staticka\Page
