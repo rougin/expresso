@@ -41,6 +41,19 @@ class Parser extends \Parsedown
             $page->setBody($body);
         }
 
+        // Add timestamp if filename format is valid ---
+        if ($file)
+        {
+            $data = (array) $page->getData();
+
+            $timestamp = $this->getTimestamp($file);
+
+            $data['created_at'] = $timestamp;
+
+            $page = $page->setData((array) $data);
+        }
+        // ---------------------------------------------
+
         $page = $this->mergeMatter($page);
 
         $layout = $page->getLayout();
@@ -76,6 +89,25 @@ class Parser extends \Parsedown
         $this->render = $render;
 
         return $this;
+    }
+
+    /**
+     * @param string $file
+     *
+     * @return integer|null
+     */
+    protected function getTimestamp($file)
+    {
+        $filename = basename($file);
+
+        $timestamp = substr($filename, 0, 14);
+
+        $valid = ((string) (int) $timestamp === $timestamp)
+            && ($timestamp <= PHP_INT_MAX)
+            && ($timestamp >= ~PHP_INT_MAX);
+
+        /** @var integer|null */
+        return $valid ? strtotime($timestamp) : null;
     }
 
     /**
