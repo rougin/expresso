@@ -20,11 +20,11 @@ class Site
     protected $parser;
 
     /**
-     * @param \Rougin\Staticka\Parser $parser
+     * @param \Rougin\Staticka\Parser|null $parser
      */
-    public function __construct(Parser $parser)
+    public function __construct(Parser $parser = null)
     {
-        $this->parser = $parser;
+        $this->parser = $parser ? $parser : new Parser;
     }
 
     /**
