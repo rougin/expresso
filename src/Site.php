@@ -10,6 +10,11 @@ namespace Rougin\Staticka;
 class Site
 {
     /**
+     * @var array<string, mixed>
+     */
+    protected $data = array();
+
+    /**
      * @var \Rougin\Staticka\Page[]
      */
     protected $pages = array();
@@ -48,6 +53,14 @@ class Site
     {
         foreach ($this->pages as $page)
         {
+            // Merge site data to page data --------
+            $data = $page->getData();
+
+            $data = array_merge($data, $this->data);
+
+            $page = $page->setData($data);
+            // -------------------------------------
+
             $page = $this->parser->parsePage($page);
 
             $path = $output . '/' . $page->getLink();
@@ -132,6 +145,18 @@ class Site
                 unlink($path);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return self
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
 
         return $this;
     }
