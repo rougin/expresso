@@ -20,61 +20,6 @@ class Site
     protected $parser;
 
     /**
-     * @param string $path
-     *
-     * @return self
-     */
-    public function emptyDir($path)
-    {
-        $directory = new \RecursiveDirectoryIterator($path, 4096);
-
-        $iterator = new \RecursiveIteratorIterator($directory, 2);
-
-        /** @var \SplFileInfo $file */
-        foreach ($iterator as $file)
-        {
-            $path = $file->getRealPath();
-
-            if (strpos($path, '.git') !== false)
-            {
-                continue;
-            }
-
-            if ($file->isDir())
-            {
-                rmdir($path);
-            }
-            else
-            {
-                unlink($path);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param string $path
-     * @param string $html
-     *
-     * @return void
-     */
-    protected function createFile($path, $html)
-    {
-        /** @var string */
-        $path = str_replace('/index', '', $path);
-
-        if (! file_exists($path))
-        {
-            mkdir($path, 0700, true);
-        }
-
-        $file = $path . '/index.html';
-
-        file_put_contents($file, $html);
-    }
-
-    /**
      * @param \Rougin\Staticka\Parser $parser
      */
     public function __construct(Parser $parser)
@@ -155,5 +100,60 @@ class Site
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return self
+     */
+    public function emptyDir($path)
+    {
+        $directory = new \RecursiveDirectoryIterator($path, 4096);
+
+        $iterator = new \RecursiveIteratorIterator($directory, 2);
+
+        /** @var \SplFileInfo $file */
+        foreach ($iterator as $file)
+        {
+            $path = $file->getRealPath();
+
+            if (strpos($path, '.git') !== false)
+            {
+                continue;
+            }
+
+            if ($file->isDir())
+            {
+                rmdir($path);
+            }
+            else
+            {
+                unlink($path);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $path
+     * @param string $html
+     *
+     * @return void
+     */
+    protected function createFile($path, $html)
+    {
+        /** @var string */
+        $path = str_replace('/index', '', $path);
+
+        if (! file_exists($path))
+        {
+            mkdir($path, 0700, true);
+        }
+
+        $file = $path . '/index.html';
+
+        file_put_contents($file, $html);
     }
 }
