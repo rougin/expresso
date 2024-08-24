@@ -90,6 +90,8 @@ class Page
 
         $data['name'] = $this->name;
 
+        $data['body'] = $this->body;
+
         $data['html'] = $this->html;
 
         return (array) $data;
