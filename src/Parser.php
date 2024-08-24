@@ -87,9 +87,7 @@ class Parser extends \Parsedown
     {
         $data = $page->getData();
 
-        $body = $page->getBody();
-
-        $parsed = Matter::parse($body);
+        $parsed = Matter::parse($page->getBody());
 
         /** @var array<string, mixed> */
         $matter = $parsed[0];
@@ -119,17 +117,20 @@ class Parser extends \Parsedown
             /** @var string */
             $name = $data['plate'];
 
-            if (! $layout || class_exists($name))
+            if ($layout)
+            {
+                $layout->setName($name);
+
+                $page->setLayout($layout);
+            }
+
+            if (class_exists($name))
             {
                 /** @var \Rougin\Staticka\Layout */
                 $layout = new $name;
-            }
-            else
-            {
-                $layout->setName($name);
-            }
 
-            $page->setLayout($layout);
+                $page->setLayout($layout);
+            }
         }
 
         /** @var string */
