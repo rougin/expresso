@@ -154,7 +154,7 @@ Building HTML pages from Markdown files only returns the content itself. By addi
 ---
 name: Hello world!
 link: hello-world
-layout: main.php
+plate: main.php
 ---
 
 # This is a hello world!
@@ -163,7 +163,7 @@ The link is **{LINK}**. And this is to get started...
 ```
 
 > [!NOTE]
-> The `layout` property specifies the layout file to be used when parsing the page. In this example, the `main.php` is the layout to be used in the `hello-world.md` file.
+> The `plate` property specifies the layout file to be used when parsing the page. In this example, the `main.php` is the layout to be used in the `hello-world.md` file.
 
 ``` html
 <!-- app/plates/main.php -->
@@ -276,7 +276,7 @@ $site->addPage($page->setLayout($layout));
 ```
 
 > [!NOTE]
-> Using this approach, there is no need to specify the `layout` property from the specified `.md` file.
+> Using this approach, there is no need to specify the `plate` property from the specified `.md` file.
 
 It is also possible to specify a class extended to `Layout` in the Front Matter details:
 
@@ -305,7 +305,7 @@ class HomeLayout extends Layout
 ---
 name: Hello world!
 link: hello-world
-layout: App\Layouts\HomeLayout
+plate: App\Layouts\HomeLayout
 ---
 
 # This is a hello world!

@@ -105,14 +105,14 @@ class Parser extends \Parsedown
             $page->setName($name);
         }
 
-        if (array_key_exists('layout', $data))
+        if (array_key_exists('plate', $data))
         {
-            $layout = new Layout;
+            $layout = $page->getLayout();
 
             /** @var string */
-            $name = $data['layout'];
+            $name = $data['plate'];
 
-            if (class_exists($name))
+            if (! $layout || class_exists($name))
             {
                 /** @var \Rougin\Staticka\Layout */
                 $layout = new $name;
