@@ -54,18 +54,13 @@ class Parser extends \Parsedown
 
         $data = (array) $page->getData();
 
-        $data['page'] = $page->getHtml();
+        $data = $this->insertHelpers($page, $data);
 
         if ($name = $layout->getName())
         {
-            $data = $this->insertHelpers($page, $data);
+            $html = $this->render->render($name, $data);
 
-            if ($name = $layout->getName())
-            {
-                $html = $this->render->render($name, $data);
-
-                $page = $page->setHtml($html);
-            }
+            $page = $page->setHtml($html);
         }
 
         return $this->useFilters($page);
