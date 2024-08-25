@@ -2,6 +2,7 @@
 
 namespace Rougin\Staticka;
 
+use Rougin\Staticka\Filter\FilterInterface;
 use Rougin\Staticka\Render\RenderInterface;
 
 /**
@@ -11,6 +12,11 @@ use Rougin\Staticka\Render\RenderInterface;
  */
 class Parser extends \Parsedown
 {
+    /**
+     * @var \Rougin\Staticka\Filter\FilterInterface[]
+     */
+    protected $filters = array();
+
     /**
      * @var \Rougin\Staticka\Render\RenderInterface|null
      */
@@ -22,6 +28,18 @@ class Parser extends \Parsedown
     public function __construct(RenderInterface $render = null)
     {
         $this->render = $render;
+    }
+
+    /**
+     * @param \Rougin\Staticka\Filter\FilterInterface $filter
+     *
+     * @return self
+     */
+    public function addFilter(FilterInterface $filter)
+    {
+        $this->filters[] = $filter;
+
+        return $this;
     }
 
     /**
@@ -58,7 +76,7 @@ class Parser extends \Parsedown
 
         $layout = $page->getLayout();
 
-        $page = $this->parseHtml($page);
+        $page = $this->parseBody($page);
 
         if (! $this->render || ! $layout)
         {
@@ -76,7 +94,7 @@ class Parser extends \Parsedown
             $page = $page->setHtml($html);
         }
 
-        return $this->useFilters($page);
+        return $this->filterPage($page);
     }
 
     /**
@@ -89,6 +107,32 @@ class Parser extends \Parsedown
         $this->render = $render;
 
         return $this;
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     *
+     * @return \Rougin\Staticka\Page
+     */
+    protected function filterPage(Page $page)
+    {
+        $layout = $page->getLayout();
+
+        if (! $layout)
+        {
+            return $page;
+        }
+
+        $filters = $layout->getFilters();
+
+        $html = $page->getHtml();
+
+        foreach ($filters as $filter)
+        {
+            $html = $filter->filter((string) $html);
+        }
+
+        return $page->setHtml($html);
     }
 
     /**
@@ -108,6 +152,31 @@ class Parser extends \Parsedown
 
         /** @var integer|null */
         return $valid ? strtotime($timestamp) : null;
+    }
+
+    /**
+     * @param \Rougin\Staticka\Page $page
+     * @param array<string, mixed>  $data
+     *
+     * @return array<string, mixed>
+     */
+    protected function insertHelpers(Page $page, $data)
+    {
+        $layout = $page->getLayout();
+
+        if (! $layout)
+        {
+            return $data;
+        }
+
+        $helpers = $layout->getHelpers();
+
+        foreach ($helpers as $helper)
+        {
+            $data[$helper->name()] = $helper;
+        }
+
+        return (array) $data;
     }
 
     /**
@@ -176,7 +245,7 @@ class Parser extends \Parsedown
      *
      * @return \Rougin\Staticka\Page
      */
-    protected function parseHtml(Page $page)
+    protected function parseBody(Page $page)
     {
         $body = $page->getBody();
 
@@ -192,58 +261,14 @@ class Parser extends \Parsedown
         }
         // ------------------------------------------
 
+        // Modify the body with filters prior parsing ---
+        foreach ($this->filters as $filter)
+        {
+            $body = $filter->filter($body);
+        }
+        // ----------------------------------------------
+
         $html = $this->parse($body);
-
-        return $page->setHtml($html);
-    }
-
-    /**
-     * @param \Rougin\Staticka\Page $page
-     * @param array<string, mixed>  $data
-     *
-     * @return array<string, mixed>
-     */
-    protected function insertHelpers(Page $page, $data)
-    {
-        $layout = $page->getLayout();
-
-        if (! $layout)
-        {
-            return $data;
-        }
-
-        $helpers = $layout->getHelpers();
-
-        foreach ($helpers as $helper)
-        {
-            $data[$helper->name()] = $helper;
-        }
-
-        return (array) $data;
-    }
-
-    /**
-     * @param \Rougin\Staticka\Page $page
-     *
-     * @return \Rougin\Staticka\Page
-     */
-    protected function useFilters(Page $page)
-    {
-        $layout = $page->getLayout();
-
-        if (! $layout)
-        {
-            return $page;
-        }
-
-        $filters = $layout->getFilters();
-
-        $html = $page->getHtml();
-
-        foreach ($filters as $filter)
-        {
-            $html = $filter->filter((string) $html);
-        }
 
         return $page->setHtml($html);
     }

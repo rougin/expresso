@@ -493,6 +493,38 @@ interface HelperInterface
 }
 ```
 
+### Adding filters to Parser
+
+By design, the filters under `FilterInterface` should be executed after parsing is completed by Parser. However, there may be scenarios that the body of a page must undergo a filter prior to its parsing process:
+
+``` php
+namespace App\Filters;
+
+use Rougin\Staticka\Filter\FilterInterface;
+
+class WorldFilter implements FilterInterface
+{
+    public function filter($code)
+    {
+        return str_replace('Hello', 'World', $code);
+    }
+}
+```
+
+``` php
+// index.php
+
+use App\Filters\WorldFilter;
+
+// ...
+
+// Replaces "Hello" string to "World" ---
+$parser->addFilter(new WorldFilter);
+// --------------------------------------
+
+// ...
+```
+
 ## Changelog
 
 Please see [CHANGELOG][link-changelog] for more information what has changed recently.
