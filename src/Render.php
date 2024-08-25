@@ -99,6 +99,7 @@ class Render implements RenderInterface
 
                 if ($fileName === strtolower($name))
                 {
+                    /** @var string */
                     $result = realpath($file['path']);
                 }
             }
@@ -111,7 +112,7 @@ class Render implements RenderInterface
     /**
      * @param string $path
      *
-     * @return string[]
+     * @return array<string, string>[]
      */
     protected function getFiles($path)
     {
@@ -131,7 +132,9 @@ class Render implements RenderInterface
         // ---------------------------------------------
 
         // Only return the basename of the file --------
-        foreach ($items as $index => $item)
+        $result = array();
+
+        foreach ($items as $item)
         {
             $row = array('name' => '', 'path' => $item);
 
@@ -146,10 +149,10 @@ class Render implements RenderInterface
 
             $row['name'] = $item;
 
-            $items[$index] = (array) $row;
+            $result[] = (array) $row;
         }
         // ---------------------------------------------
 
-        return (array) $items;
+        return (array) $result;
     }
 }
