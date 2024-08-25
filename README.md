@@ -144,6 +144,48 @@ $ php index.php
 <p>The link is <strong>hello-world</strong>.</p>
 ```
 
+The `Site` class can also empty a specified directory or copy a directory with its files. This is usable if the output directory needs CSS and JS files:
+
+```
+app/
+├─ web/
+│  ├─ index.html
+styles/
+├─ index.css
+```
+
+``` php
+// ...
+
+// Empty the "output" directory ---
+$output = __DIR__ . '/app/web';
+$site->emptyDir($output);
+// --------------------------------
+
+// Copy the "styles" directory to "output" ---
+$styles = __DIR__ . '/styles';
+$site->copyDir($styles, $output);
+// -------------------------------------------
+
+// ...
+```
+
+In specified scenarios, adding data that is applicable to all generated pages is possible in the same `Site` class:
+
+``` php
+// ...
+
+$data = array('ga_code' => '12345678');
+$data['website'] = 'https://roug.in';
+
+$site->setData($data);
+
+// ...
+```
+
+> [!WARNING]
+> Adding data in the `Site` class that contains reserved property names for the `Page` class (e.g., `link`, `plate`, etc.) will be overwritten during building.
+
 ### Adding template engines
 
 Building HTML pages from Markdown files only returns the content itself. By adding a third-party template engine, it makes it easier to add partials (e.g., layouts) or provide additional styling to each page. To add a template engine, a `Render` class must be used inside the `Parser` class:
@@ -200,6 +242,10 @@ $render = new Render($paths);
 
 $parser = new Parser($render);
 // -------------------------------------
+
+// Render may be added to Parser after ---
+$parser->setRender($render);
+// ---------------------------------------
 
 // ...
 ```
@@ -312,6 +358,8 @@ plate: App\Layouts\HomeLayout
 
 The link is **{LINK}**. And this is to get started...
 ```
+
+## Extending and customization
 
 ### Modifying with filters
 
