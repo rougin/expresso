@@ -184,7 +184,7 @@ $site->setData($data);
 ```
 
 > [!WARNING]
-> Adding data in the `Site` class that contains reserved property names for the `Page` class (e.g., `link`, `plate`, etc.) will be overwritten during building.
+> Adding data in the `Site` class that contains reserved property names for the `Page` class (e.g., `link`, `plate`, etc.) will override the data defined in a page.
 
 ### Adding template engines
 
