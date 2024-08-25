@@ -41,18 +41,18 @@ class Parser extends \Parsedown
             $page->setBody($body);
         }
 
-        // Add timestamp if filename format is valid ---
-        if ($file)
-        {
-            $data = (array) $page->getData();
+        // Add timestamp if filename format is valid --------
+        $data = (array) $page->getData();
 
+        if ($file && ! array_key_exists('created_at', $data))
+        {
             $timestamp = $this->getTimestamp($file);
 
             $data['created_at'] = $timestamp;
 
             $page = $page->setData((array) $data);
         }
-        // ---------------------------------------------
+        // --------------------------------------------------
 
         $page = $this->mergeMatter($page);
 
