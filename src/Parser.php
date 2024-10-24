@@ -224,8 +224,12 @@ class Parser extends \Parsedown
 
             if (class_exists($name))
             {
+                // TODO: Use ContainerInterface for classes ---
+                $class = new \ReflectionClass($name);
+
                 /** @var \Rougin\Staticka\Layout */
-                $layout = new $name;
+                $layout = $class->newInstanceArgs(array());
+                // --------------------------------------------
             }
             else
             {
