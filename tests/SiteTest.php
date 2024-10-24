@@ -50,7 +50,7 @@ class SiteTest extends Testcase
     /**
      * @return void
      */
-    public function test_build_with_front_matter()
+    public function test_build_with_pages_front_matter()
     {
         $expected = $this->getHtml('FrontMatter');
 
@@ -68,7 +68,7 @@ class SiteTest extends Testcase
     }
 
     /**
-     * @depends test_build_with_front_matter
+     * @depends test_build_with_pages_front_matter
      *
      * @return void
      */
@@ -221,9 +221,9 @@ class SiteTest extends Testcase
         $layout = new Layout;
         $layout->setName('filtered');
 
-        $layout->addFilter(new HtmlMinifier);
-        $layout->addFilter(new ScriptMinifier);
         $layout->addFilter(new StyleMinifier);
+        $layout->addFilter(new ScriptMinifier);
+        $layout->addFilter(new HtmlMinifier);
 
         $link = 'https://roug.in';
         $helper = new LinkHelper($link);
