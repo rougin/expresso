@@ -43,6 +43,22 @@ class PageTest extends Testcase
     /**
      * @return void
      */
+    public function test_from_constructor()
+    {
+        $expected = $this->getHtml('SimplePlate');
+
+        $page = new Page("# {NAME}\nThis is a sample page.", Page::TYPE_BODY);
+
+        $page->setName('Hello world!');
+
+        $actual = $this->getActual($page);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_from_markdown_file()
     {
         $expected = $this->getHtml('FromMdFile');

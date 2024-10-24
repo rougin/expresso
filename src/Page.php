@@ -56,12 +56,12 @@ class Page
     {
         if ($data && $type === self::TYPE_FILE)
         {
-            $this->file = $data;
+            $this->setFile($data);
         }
 
         if ($data && $type === self::TYPE_BODY)
         {
-            $this->body = $data;
+            $this->setBody($data);
         }
     }
 
@@ -88,11 +88,11 @@ class Page
     {
         $data = $this->data;
 
-        $data['name'] = $this->name;
+        $data['name'] = $this->getName();
 
-        $data['body'] = $this->body;
+        $data['body'] = $this->getBody();
 
-        $data['html'] = $this->html;
+        $data['html'] = $this->getHtml();
 
         return $data;
     }
