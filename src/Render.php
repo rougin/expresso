@@ -60,7 +60,6 @@ class Render implements RenderInterface
      * @param array<string, mixed> $data
      *
      * @return string
-     * @throws \UnexpectedValueException
      */
     protected function extract($file, $data)
     {
@@ -70,16 +69,10 @@ class Render implements RenderInterface
 
         include $file;
 
+        /** @var string */
         $data = ob_get_contents();
 
         ob_end_clean();
-
-        if (! $data)
-        {
-            $text = 'Cannot get the contents from file';
-
-            throw new \UnexpectedValueException($text);
-        }
 
         return $data;
     }

@@ -110,7 +110,7 @@ class Page
      */
     public function getHtml()
     {
-        return $this->html;
+        return $this->__toString();
     }
 
     /**

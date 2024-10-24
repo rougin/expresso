@@ -2,6 +2,8 @@
 
 namespace Rougin\Staticka;
 
+use Rougin\Staticka\Filter\HtmlMinifier;
+
 /**
  * @package Staticka
  *
@@ -80,6 +82,24 @@ class PageTest extends Testcase
         $expected = $this->getHtml('FrontMatter');
 
         $file = __DIR__ . '/Fixture/Pages/FrontMatter.md';
+
+        $page = new Page($file);
+
+        $actual = $this->getActual($page);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_with_minifier()
+    {
+        $expected = $this->getHtml('WithMinifier');
+
+        $file = __DIR__ . '/Fixture/Pages/WithMinifier.md';
+
+        $this->parser->addFilter(new HtmlMinifier);
 
         $page = new Page($file);
 

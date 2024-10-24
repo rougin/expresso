@@ -118,21 +118,21 @@ class Parser extends \Parsedown
     {
         $layout = $page->getLayout();
 
-        if (! $layout)
+        if ($layout)
         {
-            return $page;
+            $filters = $layout->getFilters();
+
+            $html = $page->getHtml();
+
+            foreach ($filters as $filter)
+            {
+                $html = $filter->filter($html);
+            }
+
+            $page->setHtml($html);
         }
 
-        $filters = $layout->getFilters();
-
-        $html = $page->getHtml();
-
-        foreach ($filters as $filter)
-        {
-            $html = $filter->filter($html);
-        }
-
-        return $page->setHtml($html);
+        return $page;
     }
 
     /**
@@ -165,16 +165,14 @@ class Parser extends \Parsedown
     {
         $layout = $page->getLayout();
 
-        if (! $layout)
+        if ($layout)
         {
-            return $data;
-        }
+            $helpers = $layout->getHelpers();
 
-        $helpers = $layout->getHelpers();
-
-        foreach ($helpers as $helper)
-        {
-            $data[$helper->name()] = $helper;
+            foreach ($helpers as $helper)
+            {
+                $data[$helper->name()] = $helper;
+            }
         }
 
         return $data;
