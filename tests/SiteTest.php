@@ -83,6 +83,30 @@ class SiteTest extends Testcase
     /**
      * @return void
      */
+    public function test_with_data()
+    {
+        $expected = $this->getHtml('WithSiteData');
+
+        $file = __DIR__ . '/Fixture/Plates/WithSiteData.md';
+
+        $page = new Page($file);
+
+        $data = array('website' => 'https://roug.in');
+
+        $this->site->setData($data);
+
+        $this->site->addPage($page);
+
+        $this->buildSite();
+
+        $actual = $this->getActualHtml('index');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
     protected function buildSite()
     {
         $path = __DIR__ . '/Fixture/Build';
