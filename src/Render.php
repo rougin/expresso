@@ -21,7 +21,12 @@ class Render implements RenderInterface
      */
     public function __construct($paths)
     {
-        $this->paths = (array) $paths;
+        if (is_string($paths))
+        {
+            $paths = array($paths);
+        }
+
+        $this->paths = $paths;
     }
 
     /**
@@ -149,10 +154,10 @@ class Render implements RenderInterface
 
             $row['name'] = $item;
 
-            $result[] = (array) $row;
+            $result[] = $row;
         }
         // ---------------------------------------------
 
-        return (array) $result;
+        return $result;
     }
 }

@@ -70,7 +70,7 @@ class Site
 
             $html = $page->getHtml();
 
-            $this->createFile($path, (string) $html);
+            $this->createFile($path, $html);
         }
 
         return $this;
@@ -87,7 +87,7 @@ class Site
         /** @var string */
         $source = realpath($source);
 
-        $this->emptyDir((string) $path);
+        $this->emptyDir($path);
 
         /** @var string[] */
         $files = glob("$source/**/**.**");

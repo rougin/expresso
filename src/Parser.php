@@ -60,7 +60,7 @@ class Parser extends \Parsedown
         }
 
         // Add timestamp if filename format is valid --------
-        $data = (array) $page->getData();
+        $data = $page->getData();
 
         if ($file && ! array_key_exists('created_at', $data))
         {
@@ -68,7 +68,7 @@ class Parser extends \Parsedown
 
             $data['created_at'] = $timestamp;
 
-            $page = $page->setData((array) $data);
+            $page = $page->setData($data);
         }
         // --------------------------------------------------
 
@@ -83,7 +83,7 @@ class Parser extends \Parsedown
             return $page;
         }
 
-        $data = (array) $page->getData();
+        $data = $page->getData();
 
         $data = $this->insertHelpers($page, $data);
 
@@ -129,7 +129,7 @@ class Parser extends \Parsedown
 
         foreach ($filters as $filter)
         {
-            $html = $filter->filter((string) $html);
+            $html = $filter->filter($html);
         }
 
         return $page->setHtml($html);
@@ -146,9 +146,10 @@ class Parser extends \Parsedown
 
         $timestamp = substr($filename, 0, 14);
 
-        $valid = ((string) (int) $timestamp === $timestamp)
-            && ($timestamp <= PHP_INT_MAX)
-            && ($timestamp >= ~PHP_INT_MAX);
+        $intStamp = (int) $timestamp;
+
+        $valid = $intStamp <= PHP_INT_MAX
+            && $intStamp >= ~PHP_INT_MAX;
 
         /** @var integer|null */
         return $valid ? strtotime($timestamp) : null;
@@ -176,7 +177,7 @@ class Parser extends \Parsedown
             $data[$helper->name()] = $helper;
         }
 
-        return (array) $data;
+        return $data;
     }
 
     /**

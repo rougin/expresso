@@ -2,6 +2,8 @@
 
 // Specify the paths in this variable ---
 $paths = array(__DIR__ . '/src');
+
+$paths[] = __DIR__ . '/tests';
 // --------------------------------------
 
 // Specify the rules for code formatting ---------
@@ -64,7 +66,7 @@ $rules['align_multiline_comment'] = true;
 
 $finder = new \PhpCsFixer\Finder;
 
-$finder->in((array) $paths);
+$finder->in($paths);
 
 $config = new \PhpCsFixer\Config;
 

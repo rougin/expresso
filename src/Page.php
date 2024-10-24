@@ -29,9 +29,9 @@ class Page
     protected $file = null;
 
     /**
-     * @var string|null
+     * @var string
      */
-    protected $html = null;
+    protected $html = '';
 
     /**
      * @var \Rougin\Staticka\Layout|null
@@ -70,7 +70,7 @@ class Page
      */
     public function __toString()
     {
-        return (string) $this->html;
+        return $this->html;
     }
 
     /**
@@ -94,7 +94,7 @@ class Page
 
         $data['html'] = $this->html;
 
-        return (array) $data;
+        return $data;
     }
 
     /**
@@ -106,7 +106,7 @@ class Page
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getHtml()
     {
@@ -174,11 +174,11 @@ class Page
     }
 
     /**
-     * @param string|null $html
+     * @param string $html
      *
      * @return self
      */
-    public function setHtml($html = null)
+    public function setHtml($html)
     {
         $this->html = $html;
 

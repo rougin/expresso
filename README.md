@@ -28,12 +28,12 @@ $ composer require rougin/staticka
 use Rougin\Staticka\Page;
 use Rougin\Staticka\Parser;
 
-// Creates a new page with the specified body ---------
+// Creates a new page with the specified body -----
 $page = new Page;
 
 $page->setName('Hello world!');
-$page->setBody("# {NAME}\nThis is a sample template.");
-// ----------------------------------------------------
+$page->setBody("# {NAME}\nThis is a sample page.");
+// ------------------------------------------------
 
 // Converts the page into an HTML ---
 $parser = new Parser;
@@ -106,7 +106,6 @@ The link is **{LINK}**.
 $ php index.php
 
 <h1>Hello World!</h1>
-
 <p>The link is <strong>hello-world</strong>.</p>
 ```
 
@@ -127,7 +126,7 @@ use Rougin\Staticka\Site;
 $site = new Site($parser);
 
 $file = __DIR__ . '/app/pages/hello-world.md';
-$site->addPage(new Page((string) $file));
+$site->addPage(new Page($file));
 
 $site->build(__DIR__ . '/app/web');
 // -------------------------------------------

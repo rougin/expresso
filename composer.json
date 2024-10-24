@@ -1,7 +1,7 @@
 {
   "name": "rougin/staticka",
   "description": "Yet another PHP-based static site generator.",
-  "keywords": [ "simple", "static-site", "generator" ],
+  "keywords": [ "simple", "static-site", "site-generator" ],
   "homepage": "https://roug.in/staticka",
   "license": "MIT",
   "authors":

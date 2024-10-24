@@ -28,11 +28,11 @@ class HtmlMinifier implements FilterInterface
             return $this->minify($code);
         }
 
-        $utf8 = (string) '<?xml encoding="UTF-8">';
+        $utf8 = '<?xml encoding="UTF-8">';
 
         $dom = new \DOMDocument;
 
-        @$dom->loadHTML((string) $utf8 . $code);
+        @$dom->loadHTML($utf8 . $code);
 
         /** @var \DOMElement[] */
         $elements = $dom->getElementsByTagName('*');
@@ -113,7 +113,7 @@ class HtmlMinifier implements FilterInterface
                 continue;
             }
 
-            $output = (string) $element->nodeValue;
+            $output = $element->nodeValue;
 
             if (in_array($element->nodeName, $encoded))
             {
@@ -123,7 +123,7 @@ class HtmlMinifier implements FilterInterface
                 $output = htmlentities($value);
             }
 
-            array_push($this->data, (string) $output);
+            array_push($this->data, $output);
 
             $current = count($this->data) - 1;
 
@@ -142,11 +142,11 @@ class HtmlMinifier implements FilterInterface
     {
         foreach ($this->data as $index => $item)
         {
-            $key = (string) '$' . $index . '$';
+            $key = '$' . $index . '$';
 
             $html = str_replace($key, $item, $html);
         }
 
-        return (string) $html;
+        return $html;
     }
 }

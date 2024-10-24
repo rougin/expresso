@@ -23,7 +23,7 @@ class StyleMinifier extends InlineMinifier
      */
     protected function minify($code)
     {
-        $minified = (string) parent::minify($code);
+        $minified = parent::minify($code);
 
         return str_replace(' > ', '>', $minified);
     }

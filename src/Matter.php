@@ -29,13 +29,13 @@ class Matter
             $yaml = str_replace($id, PHP_EOL, $matches[1]);
 
             /** @var array<string, mixed> */
-            $matter = (array) Yaml::parse(trim($yaml));
+            $matter = Yaml::parse(trim($yaml));
 
             $body = str_replace($matches[0], '', $text);
 
             $content = str_replace($id, PHP_EOL, $body);
         }
 
-        return array($matter, (string) trim($content));
+        return array($matter, trim($content));
     }
 }

@@ -33,11 +33,12 @@ class InlineMinifier implements FilterInterface
      */
     public function filter($code)
     {
-        $elements = (array) $this->elements($code);
+        $elements = $this->elements($code);
 
-        foreach ((array) $elements as $element)
+        foreach ($elements as $element)
         {
-            $original = (string) $element->nodeValue;
+            /** @var string */
+            $original = $element->nodeValue;
 
             $minified = $this->minify($original);
 
@@ -65,9 +66,9 @@ class InlineMinifier implements FilterInterface
 
         $doc = new \DOMDocument;
 
-        $doc->loadHTML((string) $code);
+        $doc->loadHTML($code);
 
-        $tag = (string) $this->tagname;
+        $tag = $this->tagname;
 
         $items = $doc->getElementsByTagName($tag);
 
@@ -85,7 +86,7 @@ class InlineMinifier implements FilterInterface
      */
     protected function minify($code)
     {
-        $pattern = (string) '!/\*[^*]*\*+([^/][^*]*\*+)*/!';
+        $pattern = '!/\*[^*]*\*+([^/][^*]*\*+)*/!';
 
         /** @var string */
         $minified = preg_replace('/^\\s+/m', '', $code);

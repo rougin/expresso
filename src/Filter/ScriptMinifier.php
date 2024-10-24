@@ -23,7 +23,7 @@ class ScriptMinifier extends InlineMinifier
      */
     protected function minify($code)
     {
-        $code = (string) parent::minify($code);
+        $code = parent::minify($code);
 
         /** @var string */
         $code = preg_replace('/( )?=( )?/', '=', $code);
