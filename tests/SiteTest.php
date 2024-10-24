@@ -2,6 +2,11 @@
 
 namespace Rougin\Staticka;
 
+use Rougin\Staticka\Filter\HtmlMinifier;
+use Rougin\Staticka\Filter\ScriptMinifier;
+use Rougin\Staticka\Filter\StyleMinifier;
+use Rougin\Staticka\Helper\LinkHelper;
+
 /**
  * @package Staticka
  *
@@ -107,6 +112,28 @@ class SiteTest extends Testcase
     /**
      * @return void
      */
+    public function test_with_filters()
+    {
+        $expected = $this->getHtml('WithFilter');
+
+        $file = __DIR__ . '/Fixture/Pages/WithFilter.md';
+
+        $this->withRender();
+
+        $page = new Page($file);
+        $page->setLayout($this->getLayout());
+        $this->site->addPage($page);
+
+        $this->buildSite();
+
+        $actual = $this->getActualHtml('home');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_with_layout()
     {
         $expected = $this->getHtml('WithLayout');
@@ -184,6 +211,25 @@ class SiteTest extends Testcase
         $result = file_get_contents($file);
 
         return str_replace("\r\n", "\n", $result);
+    }
+
+    /**
+     * @return \Rougin\Staticka\Layout
+     */
+    protected function getLayout()
+    {
+        $layout = new Layout;
+        $layout->setName('filtered');
+
+        $layout->addFilter(new HtmlMinifier);
+        $layout->addFilter(new ScriptMinifier);
+        $layout->addFilter(new StyleMinifier);
+
+        $link = 'https://roug.in';
+        $helper = new LinkHelper($link);
+        $layout->addHelper($helper);
+
+        return $layout;
     }
 
     /**
