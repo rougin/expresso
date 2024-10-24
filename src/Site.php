@@ -162,6 +162,18 @@ class Site
     }
 
     /**
+     * @param \Rougin\Staticka\Parser $parser
+     *
+     * @return self
+     */
+    public function setParser(Parser $parser)
+    {
+        $this->parser = $parser;
+
+        return $this;
+    }
+
+    /**
      * @param string $path
      * @param string $html
      *

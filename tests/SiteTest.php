@@ -29,7 +29,7 @@ class SiteTest extends Testcase
     {
         $expected = $this->getHtml('FromMdFile');
 
-        $file = __DIR__ . '/Fixture/Plates/HelloWorld.md';
+        $file = __DIR__ . '/Fixture/Pages/HelloWorld.md';
 
         $page = new Page($file);
 
@@ -49,7 +49,7 @@ class SiteTest extends Testcase
     {
         $expected = $this->getHtml('FrontMatter');
 
-        $file = __DIR__ . '/Fixture/Plates/FrontMatter.md';
+        $file = __DIR__ . '/Fixture/Pages/FrontMatter.md';
 
         $page = new Page($file);
 
@@ -87,7 +87,7 @@ class SiteTest extends Testcase
     {
         $expected = $this->getHtml('WithSiteData');
 
-        $file = __DIR__ . '/Fixture/Plates/WithSiteData.md';
+        $file = __DIR__ . '/Fixture/Pages/WithSiteData.md';
 
         $page = new Page($file);
 
@@ -100,6 +100,46 @@ class SiteTest extends Testcase
         $this->buildSite();
 
         $actual = $this->getActualHtml('index');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_with_layout()
+    {
+        $expected = $this->getHtml('WithLayout');
+
+        $file = __DIR__ . '/Fixture/Pages/WithLayout.md';
+
+        $this->withRender();
+
+        $this->site->addPage(new Page($file));
+
+        $this->buildSite();
+
+        $actual = $this->getActualHtml('world');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_with_plate()
+    {
+        $expected = $this->getHtml('WithPlate');
+
+        $file = __DIR__ . '/Fixture/Pages/WithPlate.md';
+
+        $this->withRender();
+
+        $this->site->addPage(new Page($file));
+
+        $this->buildSite();
+
+        $actual = $this->getActualHtml('hello');
 
         $this->assertEquals($expected, $actual);
     }
@@ -144,5 +184,19 @@ class SiteTest extends Testcase
         $result = file_get_contents($file);
 
         return str_replace("\r\n", "\n", $result);
+    }
+
+    /**
+     * @return void
+     */
+    protected function withRender()
+    {
+        $path = __DIR__ . '/Fixture/Plates';
+
+        $parser = new Parser;
+
+        $parser->setRender(new Render($path));
+
+        $this->site->setParser($parser);
     }
 }

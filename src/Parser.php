@@ -219,20 +219,22 @@ class Parser extends \Parsedown
             /** @var string */
             $name = $data['plate'];
 
-            if ($layout)
+            if (! $layout)
             {
-                $layout->setName($name);
-
-                $page->setLayout($layout);
+                $layout = new Layout;
             }
 
             if (class_exists($name))
             {
                 /** @var \Rougin\Staticka\Layout */
                 $layout = new $name;
-
-                $page->setLayout($layout);
             }
+            else
+            {
+                $layout->setName($name);
+            }
+
+            $page->setLayout($layout);
         }
 
         /** @var string */

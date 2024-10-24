@@ -63,7 +63,7 @@ class PageTest extends Testcase
     {
         $expected = $this->getHtml('FromMdFile');
 
-        $file = __DIR__ . '/Fixture/Plates/HelloWorld.md';
+        $file = __DIR__ . '/Fixture/Pages/HelloWorld.md';
 
         $page = new Page($file);
 
@@ -79,7 +79,7 @@ class PageTest extends Testcase
     {
         $expected = $this->getHtml('FrontMatter');
 
-        $file = __DIR__ . '/Fixture/Plates/FrontMatter.md';
+        $file = __DIR__ . '/Fixture/Pages/FrontMatter.md';
 
         $page = new Page($file);
 
