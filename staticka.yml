@@ -1,0 +1,11 @@
+root_path: %%CURRENT_DIRECTORY%%/app
+
+assets_path: %%CURRENT_DIRECTORY%%/app/assets
+build_path: %%CURRENT_DIRECTORY%%/app/build
+pages_path: %%CURRENT_DIRECTORY%%/app/pages
+plates_path: %%CURRENT_DIRECTORY%%/app/plates
+scripts_path: %%CURRENT_DIRECTORY%%/app/scripts
+styles_path: %%CURRENT_DIRECTORY%%/app/styles
+
+packages:
+  - Staticka\Expresso\Package
