@@ -5,7 +5,7 @@
 [![Build Status][ico-build]][link-build]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is the skeleton project for the [Expresso](https://github.com/staticka/expresso) package which also provides the [Console](https://github.com/staticka/console) package for building Markdown pages.
+This is the project skeleton for the [Expresso](https://github.com/staticka/expresso) package which also provides the [Console](https://github.com/staticka/console) package for building Markdown pages to HTML.
 
 ## Installation
 
@@ -61,7 +61,7 @@ The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
 [link-build]: https://github.com/staticka/expresso/actions
 [link-changelog]: https://github.com/staticka/expresso/blob/master/CHANGELOG.md
-[link-console-readme]: https://github.com/staticka/expresso/blob/master/README.md
+[link-console-readme]: https://github.com/staticka/console/blob/master/README.md
 [link-contributors]: https://github.com/staticka/expresso/contributors
 [link-downloads]: https://packagist.org/packages/staticka/expresso
 [link-expresso-readme]: https://github.com/staticka/expresso/blob/master/README.md
