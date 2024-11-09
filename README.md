@@ -27,7 +27,7 @@ As this is a project template, kindly see the documentation for each required pa
 To run the application, the [PHP's built-in web server](https://www.php.net/manual/en/features.commandline.webserver.php) can be used:
 
 ``` bash
-$ php -S localhost:3977
+$ php -S localhost:3977 -t app/public
 ```
 
 Once the application has been initialized, kindly see the instructions found in the `Dashboard` page of the application.
