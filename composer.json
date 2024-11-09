@@ -1,8 +1,8 @@
 {
-  "name": "rougin/staticka",
-  "description": "Yet another PHP-based static site generator.",
-  "keywords": [ "simple", "static-site", "site-generator" ],
-  "homepage": "https://roug.in/staticka",
+  "name": "rougin/expresso",
+  "description": "Static blog platform based on Staticka.",
+  "keywords": [ "static-blog", "php-blog", "static-site" ],
+  "homepage": "https://roug.in/staticka/expresso/",
   "license": "MIT",
   "authors":
   [
@@ -16,8 +16,9 @@
   "require":
   {
     "php": ">=5.3.0",
-    "erusev/parsedown": "~1.6",
-    "symfony/yaml": "~2.8|~3.0|~4.0|~5.0|~6.0|~7.0"
+    "staticka/console": "dev-master",
+    "staticka/expresso": "dev-master",
+    "staticka/staticka": "dev-master"
   },
   "require-dev":
   {
@@ -28,25 +29,18 @@
   {
     "psr-4":
     {
-      "Rougin\\Staticka\\": "src"
+      "App\\": "src"
     }
   },
   "autoload-dev":
   {
     "psr-4":
     {
-      "Rougin\\Staticka\\": "tests"
+      "App\\": "tests"
     }
   },
   "scripts":
   {
     "test": "phpunit"
-  },
-  "extra":
-  {
-    "branch-alias":
-    {
-      "dev-master": "1.0-dev"
-    }
   }
 }
