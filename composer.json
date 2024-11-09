@@ -16,9 +16,8 @@
   "require":
   {
     "php": ">=5.3.0",
-    "staticka/console": "dev-master",
-    "staticka/expresso": "dev-master",
-    "staticka/staticka": "~0.4",
+    "staticka/console": "~0.2",
+    "staticka/expresso": "~0.1",
     "vlucas/valitron": "~1.4"
   },
   "require-dev":
