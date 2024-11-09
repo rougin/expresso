@@ -3,7 +3,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]][link-license]
 [![Build Status][ico-build]][link-build]
-[![Coverage Status][ico-coverage]][link-coverage]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This is the skeleton project for the [Expresso](https://github.com/staticka/expresso) package which also provides the [Console](https://github.com/staticka/console) package for building Markdown pages.
@@ -56,7 +55,6 @@ Please see [CHANGELOG][link-changelog] for more information what has changed rec
 The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
 [ico-build]: https://img.shields.io/github/actions/workflow/status/staticka/expresso/build.yml?style=flat-square
-[ico-coverage]: https://img.shields.io/codecov/c/github/staticka/expresso?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/staticka/expresso.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-version]: https://img.shields.io/packagist/v/staticka/expresso.svg?style=flat-square
@@ -65,7 +63,6 @@ The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 [link-changelog]: https://github.com/staticka/expresso/blob/master/CHANGELOG.md
 [link-console-readme]: https://github.com/staticka/expresso/blob/master/README.md
 [link-contributors]: https://github.com/staticka/expresso/contributors
-[link-coverage]: https://app.codecov.io/gh/staticka/expresso
 [link-downloads]: https://packagist.org/packages/staticka/expresso
 [link-expresso-readme]: https://github.com/staticka/expresso/blob/master/README.md
 [link-license]: https://github.com/staticka/expresso/blob/master/LICENSE.md
